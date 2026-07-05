@@ -1,0 +1,6 @@
+{
+  "name": "SyncReady",
+  "description": "A highly polished utility to help you fix WhatsApp Web disconnections on your laptop due to system sleep or network power saver features, complete with automated scripts and clear guides.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

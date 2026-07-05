@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "Issue": {
+      "title": "Issue",
+      "description": "A trouble ticket or feedback log detailing network adapter disconnection on sleep",
+      "type": "object",
+      "properties": {
+        "reportedBy": {
+          "type": "string",
+          "description": "Full name of the user writing the ticket"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number for follow-up reference"
+        },
+        "adapterName": {
+          "type": "string",
+          "description": "Name of the network card driver such as RTL8821CE"
+        },
+        "os": {
+          "type": "string",
+          "description": "Operating system identifier"
+        },
+        "browser": {
+          "type": "string",
+          "description": "The internet browser holding the WhatsApp session tab"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Clear descriptive statement of disconnections"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Open", "In-Progress", "Resolved"]
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Formatted live string representation date"
+        }
+      },
+      "required": ["notes"]
+    }
+  },
+  "firestore": {
+    "/issues/{issueId}": {
+      "schema": "Issue",
+      "description": "Public community directory for logged adapter issues"
+    }
+  }
+}

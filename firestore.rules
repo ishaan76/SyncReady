@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Default Standard Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper to validate basic database IDs
+    function isValidId(id) {
+      return id is string && id.size() <= 128;
+    }
+
+    // Public community adapter disconnections issues registry
+    match /issues/{issueId} {
+      allow read: if true;
+      
+      allow create: if request.resource.data.notes is string 
+                    && request.resource.data.notes.size() <= 2000
+                    && request.resource.data.reportedBy is string
+                    && request.resource.data.reportedBy.size() <= 200
+                    && request.resource.data.phone is string
+                    && request.resource.data.phone.size() <= 50
+                    && request.resource.data.adapterName is string
+                    && request.resource.data.adapterName.size() <= 200
+                    && request.resource.data.os is string
+                    && request.resource.data.os.size() <= 100
+                    && request.resource.data.browser is string
+                    && request.resource.data.browser.size() <= 100;
+      
+      // Allow any updates and deletions (e.g. from the admin dashboard)
+      allow update, delete: if true;
+    }
+  }
+}
